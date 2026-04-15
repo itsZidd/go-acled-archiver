@@ -1,4 +1,4 @@
-module acled-sync
+module acled-archiver
 
 go 1.26.1
 
