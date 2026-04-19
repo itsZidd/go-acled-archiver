@@ -1,6 +1,31 @@
 # Changelog
+All notable changes to the ACLED Archive Pipeline will be documented here.
 
-All notable changes to the WorldTension ACLED Archive Pipeline will be documented here.
+---
+
+## [v0.3.0] - 2026-04-19
+
+### Changed
+- Migrated database from Railway (cloud) to local Docker PostgreSQL 16
+- `DATABASE_URL` now points to `localhost:5432` with `sslmode=disable`
+- Trimmed schema from 35 columns down to 24 — dropped `time_precision`, `geo_precision`, `timestamp`, `tags`, `source`, `source_scale`, `admin2`, `admin3`, `location`, `population_1km`, `population_2km`, `population_5km` in favour of a lean research-focused schema
+- `inter1` and `inter2` corrected from `INT` to `TEXT` in schema — ACLED academic tier returns string codes not integers
+- Added `region` and `sub_event_type` retained as analytically valuable fields
+- Kept grey-area fields: `assoc_actor_1`, `assoc_actor_2`, `interaction`, `civilian_targeting`
+
+### Added
+- CLI `-start` and `-end` year flags — no longer need to edit source code to change sync range
+- Input validation: exits early if `-start` > `-end`
+- `DATABASE_URL` empty check added alongside existing credential checks in `main.go`
+- Per-year and total event counters in sync output (`yearEvents`, `totalEvents`)
+- Per-row batch error draining in `postgres.go` — replaces silent `br.Close()` swallow
+- `civilian_targeting` added to `ON CONFLICT DO UPDATE` fields since ACLED revises this
+- `last_updated_at` column added to schema (required by `ON CONFLICT` clause)
+- Additional indexes: `idx_acled_year`, `idx_acled_event_type`, `idx_acled_actor1`, `idx_acled_region`
+
+### Fixed
+- `PopulationBest` changed from `int` to `*int` in `models.go` — prevents `null` being stored as `0`
+- Error logs now include year and page number for easier debugging
 
 ---
 

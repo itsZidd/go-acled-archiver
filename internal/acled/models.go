@@ -3,8 +3,7 @@ package acled
 type Event struct {
 	EventID           string  `json:"event_id_cnty"`
 	EventDate         string  `json:"event_date"`
-	Year              int     `json:"year"` // No ,string
-	TimePrecision     string  `json:"time_precision"`
+	Year              int     `json:"year"`
 	DisorderType      string  `json:"disorder_type"`
 	EventType         string  `json:"event_type"`
 	SubEventType      string  `json:"sub_event_type"`
@@ -16,26 +15,15 @@ type Event struct {
 	Inter2            string  `json:"inter2"`
 	Interaction       string  `json:"interaction"`
 	CivilianTargeting string  `json:"civilian_targeting"`
-	ISO               int     `json:"iso"` // No ,string
+	ISO               int     `json:"iso"`
 	Region            string  `json:"region"`
 	Country           string  `json:"country"`
 	Admin1            string  `json:"admin1"`
-	Admin2            string  `json:"admin2"`
-	Admin3            string  `json:"admin3"`
-	Location          string  `json:"location"`
-	GeoPrecision      int     `json:"geo_precision"`    // No ,string
-	Latitude          float64 `json:"latitude,string"`  // KEEP ,string
-	Longitude         float64 `json:"longitude,string"` // KEEP ,string
-	Source            string  `json:"source"`
-	SourceScale       string  `json:"source_scale"`
+	Latitude          float64 `json:"latitude,string"`
+	Longitude         float64 `json:"longitude,string"`
+	Fatalities        int     `json:"fatalities"`
 	Notes             string  `json:"notes"`
-	Fatalities        int     `json:"fatalities"` // No ,string
-	Timestamp         int64   `json:"timestamp"`  // No ,string
-	Tags              *string `json:"tags"`
-	Population1km     int     `json:"population_1km"`
-	Population2km     int     `json:"population_2km"`
-	Population5km     *int    `json:"population_5km"`
-	PopulationBest    int     `json:"population_best"`
+	PopulationBest    *int    `json:"population_best"`
 }
 
 type APIResponse struct {
